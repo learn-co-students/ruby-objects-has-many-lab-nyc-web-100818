@@ -1,33 +1,33 @@
-# artist should have many songs
+require 'pry'
 class Artist
-  attr_accessor :name, :songs, :artist
-
-  @@song_count = 0 # adding up all the songs 
-
-  def initialize(name) # this name is the artist's name
+  attr_reader :name, :songs # I'm assuming an Artist cannot change his/her name so we only need a getter, not a setter
+  @@song_count = 0 # starts at 0
+  # ---INSTANCE METHODS ---
+  def initialize(name) # an Artist instance is initialized w a name
     @name = name
-    @songs = [] # so this array of songs belongs to one artist
-    @artist = artist
+    @songs = [] # each Artist instance will have many songs and this array will hold those songs
   end
 
-  def add_song(song) # one way to add a song
+  def add_song(song)
     @songs << song
-    song.artist = self
-    @@song_count += 1
-  end
-  # The argument that's being passed in is a song
-  # The self refers to the specific instance since it's not a class method
-  # This song's artist attribute is now this artist (self, the instance)
-
-  def add_song_by_name(song_name) # another way to add a song
-    song = Song.new(song_name)
-    @songs << song
-    song.artist = self
-    @@song_count += 1
+    song.artist = self # this song's artist is the instance of the Artist class we are in. This song BELONGS TO this artist instance.
+    @@song_count += 1 # inc this everytime an Artist instance adds a new song
   end
 
-  def self.song_count
-    @@song_count # reader for song_count
+  def add_song_by_name(song) # takes in an arg of a song name
+    new_song = Song.new(song)
+    @songs << new_song
+    new_song.artist = self # associate the new_song to the Artist instance
+    @@song_count += 1 # inc this everytime an Artist instance adds a new song
   end
 
-end
+  # def songs # this is not necessary since we can just puts @songs in the attr_reader
+  #   @songs # gets the output of the @songs array
+  # end
+  # ---CLASS METHODS ---
+  def self.song_count # returns the total number of songs associated to all existing artists
+    @@song_count
+  end
+
+end # end of Artist class
+# binding.pry
