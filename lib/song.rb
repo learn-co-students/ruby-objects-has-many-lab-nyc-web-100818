@@ -16,6 +16,7 @@ class Song
   def artist_name
    if self.artist
      self.artist.name
+     # this is calling self.artist first and then chaining it with .name to get the artist's name
      # if there's an artist return artist name otherwise return nil
    end
   end
