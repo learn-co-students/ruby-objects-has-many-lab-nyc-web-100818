@@ -1,20 +1,21 @@
 class Post
-  attr_accessor :title, :author
+
+  attr_accessor :title, :author 
+
   @@all = []
 
   def initialize(title)
     @title = title
-    @author = author
     @@all << self
   end
 
-  def self.all #return array of all post instances
+  def self.all
     @@all
   end
 
   def author_name
-    self.author ? self.author.name : nil
+    #knows author name, nil if !exist
+  author.name if author
   end
-
 
 end
